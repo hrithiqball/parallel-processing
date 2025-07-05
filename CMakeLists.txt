@@ -7,7 +7,7 @@ find_package(MPI REQUIRED)
 include_directories(${MPI_CXX_INCLUDE_PATH})
 
 # Set output directory for all executables to the project root
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # program 1
 add_executable(program1 program1.cpp)
