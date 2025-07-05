@@ -47,32 +47,3 @@ jobs:
           files: release-linux/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install MS-MPI
-        run: |
-          Invoke-WebRequest -Uri "https://github.com/microsoft/Microsoft-MPI/releases/download/v10.1.1/msmpisetup.exe" -OutFile "msmpisetup.exe"
-          Start-Process .\msmpisetup.exe -ArgumentList "/quiet" -Wait
-
-      - name: Configure CMake with MS-MPI
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DMPI_CXX_INCLUDE_PATH="C:/Program Files (x86)/Microsoft SDKs/MPI/Include" -DMPI_CXX_LIBRARIES="C:/Program Files (x86)/Microsoft SDKs/MPI/Lib/x64/msmpi.lib" -DMPI_CXX_COMPILER="mpicxx"
-
-      - name: Build all programs
-        run: cmake --build build --config Release --target program1 program2 program3 program4 program5 program6 program7 program8 program9 program10
-
-      - name: Prepare release assets
-        shell: bash
-        run: |
-          mkdir release-windows
-          cp build/Release/program*.exe release-windows/
-
-      - name: Upload Release Asset (Windows)
-        uses: softprops/action-gh-release@v2
-        with:
-          files: release-windows/*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

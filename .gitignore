@@ -1,0 +1,22 @@
+# Ignore build directories and generated files
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+Testing/
+install_manifest.txt
+*.o
+*.obj
+*.exe
+*.out
+program1
+program2
+program3
+program4
+program5
+program6
+program7
+program8
+program9
+program10

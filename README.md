@@ -18,7 +18,7 @@ This project contains multiple C++ programs (program1.cpp, program2.cpp, ..., pr
 
 - **C++ Compiler** (e.g., g++, clang++)
 - **CMake** (for building the project)
-- **MPI Implementation** (e.g., OpenMPI or MPICH)
+- **MPI Implementation** (e.g., OpenMPI)
 
 ### Installing MPI (OpenMPI Example)
 
@@ -64,6 +64,30 @@ Replace `program1` with the desired program name and adjust the number of proces
 cd cmake-build-debug
 mpirun -np 4 ./program2
 ```
+
+## Running Tests
+
+To build and run all tests for the MPI programs:
+
+1. Build the project:
+
+   ```sh
+   cmake .
+   make
+   ```
+
+2. Run all tests using CTest:
+   ```sh
+   ctest --output-on-failure
+   ```
+   Or, if you are using Makefiles:
+   ```sh
+   make test
+   ```
+
+This will run each program with 4 MPI processes and report if they execute successfully.
+
+> Note: Make sure you have MPI installed (e.g., `openmpi`).
 
 ## Troubleshooting
 
