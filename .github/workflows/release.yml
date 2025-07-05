@@ -52,32 +52,18 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Configure CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
 
       - name: Install MS-MPI
-        run: choco install msmpi
+        run: choco install msmpi --no-progress
+
+      - name: Configure CMake with MS-MPI
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DMPI_CXX_INCLUDE_PATH="C:/Program Files (x86)/Microsoft SDKs/MPI/Include" -DMPI_CXX_LIBRARIES="C:/Program Files (x86)/Microsoft SDKs/MPI/Lib/x64/msmpi.lib" -DMPI_CXX_COMPILER="mpicxx"
 
       - name: Build all programs
         run: cmake --build build --config Release --target program1 program2 program3 program4 program5 program6 program7 program8 program9 program10
 
-      - name: Upload Windows Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows-binaries
-          path: |
-            build/Release/program1.exe
-            build/Release/program2.exe
-            build/Release/program3.exe
-            build/Release/program4.exe
-            build/Release/program5.exe
-            build/Release/program6.exe
-            build/Release/program7.exe
-            build/Release/program8.exe
-            build/Release/program9.exe
-            build/Release/program10.exe
-
       - name: Prepare release assets
+        shell: bash
         run: |
           mkdir release-windows
           cp build/Release/program*.exe release-windows/
